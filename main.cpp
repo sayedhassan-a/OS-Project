@@ -82,7 +82,7 @@ int main()//int argc, char** argv)
         //fwrite(&x.c , 1 , sizeof(x.c) , fp );
         if(lines[idx]==i)
         {
-            string s="\n";
+            string s='\n';
             fwrite(&s , 1 , sizeof(s) , fp );
             idx++;
         }
