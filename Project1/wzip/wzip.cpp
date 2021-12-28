@@ -49,17 +49,16 @@ int main(int argc, char** argv)
     {
         FILE* p;
 
-        p=freopen(argv[1],"r",stdin);
-        c='b';
+        p=freopen(argv[i],"r",stdin);
+        c=getchar();
         while(c!=EOF)
         {
-            chk=c;
-            c=getchar();
-            if(c==-1)continue;
+
             if(chk=='\n'&&c=='\n')
             {
                 int sze=v.size();
                 v[sze-1].num++;
+                c=getchar();
                 continue;
             }
             if(c=='\n')
@@ -71,9 +70,13 @@ int main(int argc, char** argv)
                 temp.c='\n';
                 v.push_back(temp);
                 s.clear();
+                chk=c;
+                c=getchar();
                 continue;
             }
             s+=c;
+            chk=c;
+            c=getchar();
 
         }
         fclose(p);
