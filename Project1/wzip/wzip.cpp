@@ -13,7 +13,7 @@ int fun()
 {
     int n=s.size();
     int cnt=1;
-    for(int i=1;i<n&&s[i]!='\n';i++)
+    for(int i=1;i<n;i++)
     {
         if(s[i]!=s[i-1])
         {
@@ -22,7 +22,6 @@ int fun()
             psh.c=s[i-1];
             v.push_back(psh);
             cnt=1;
-//            cout<<"#"<<s[i]<<"#";
         }
         else
         {
@@ -54,37 +53,13 @@ int main(int argc, char** argv)
         while(c!=EOF)
         {
 
-            if(chk=='\n'&&c=='\n')
-            {
-                int sze=v.size();
-                v[sze-1].num++;
-                c=getchar();
-                continue;
-            }
-            if(c=='\n')
-            {
-
-                fun();
-                dat temp;
-                temp.num=1;
-                temp.c='\n';
-                v.push_back(temp);
-                s.clear();
-                chk=c;
-                c=getchar();
-                continue;
-            }
             s+=c;
-            chk=c;
             c=getchar();
-
         }
         fclose(p);
     }
-
-    if(!s.empty())fun();
+    fun();
     for(auto x:v){
-        //cout<<x.num<<" "<<x.c<<endl;
         fwrite(&x.num, 1 , sizeof(x.num) , stdout );
         fwrite(&x.c , 1 , sizeof(x.c) , stdout );
 
