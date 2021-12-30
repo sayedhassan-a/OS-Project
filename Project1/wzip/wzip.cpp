@@ -38,7 +38,7 @@ int fun()
 int main(int argc, char** argv)
 {
 
-    char c,chk='a';
+    char c;
     if(argc==1)
     {
         cout<<"wzip: file1 [file2 ...]\n";
