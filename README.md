@@ -6,4 +6,4 @@ Building a few utilities of UNIX
         - wzip
         - wunzip
 ## project 2 
-    ### parallel-zip
+    parallel-zip
