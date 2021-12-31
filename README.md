@@ -7,3 +7,5 @@ Building a few utilities of UNIX
         - wunzip
 ## project 2 
     parallel-zip
+## Team members 
+ @ziadseng
