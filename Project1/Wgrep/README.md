@@ -3,7 +3,7 @@
  If a line has the word within it, the line is printed out, otherwise it is not.
  ### Cases 
      -The search is case sensitive 
-     -No file name has been entered the code prints "wgrep: searchterm [file ...]" and exit with 1.
+     -No file name has not been entered the code prints "wgrep: searchterm [file ...]" and exit with 1.
      -The file cannot be opened the code prints"wgrep: cannot open file" and exit with 1.
      -If there were no matches on the file the code will not print any thing and return with 0.
      -If the string space the code will print the entire file 
