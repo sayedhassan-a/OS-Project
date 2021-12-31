@@ -53,8 +53,7 @@ ll popFront(ll h, ll xp, ll p, char ch)
 
 int main(int argc, char **argv)
 {
-    
-        ll x = 128,
+        ll x = 257,
            p1 = 1e9 + 7, p2 = 1e9 + 9;
     vector<ll> xp1(1e5 + 1), xp2(1e5 + 1);
     xp1[0] = xp2[0] = 1;
@@ -70,7 +69,6 @@ int main(int argc, char **argv)
     cout<<"wgrep: cannot open file"<<endl;
     return 1;}
    }
-    //cout<<num<<endl;
     if(argc==1){
     cout<<"wgrep: searchterm [file ...]"<<endl;
     return 1;
@@ -92,7 +90,6 @@ int main(int argc, char **argv)
     {
         
         ll hz = 0, hz2=0;
-        //cout << z << endl;
         int n = z.size();
         for (int i = 0; i < min(n, m); i++)
         {
