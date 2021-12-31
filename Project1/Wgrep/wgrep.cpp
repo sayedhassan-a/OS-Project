@@ -87,18 +87,12 @@ int main(int argc, char **argv)
         hy2 = PushBack(hy2, x, p2, y[i]);
     }
 
-    char c;
-    int ch=0,b=0;
-    while (c != EOF)
+   
+    while ( getline(cin, z))
     {
-    if(c=='\n')
-    { c= getchar(),b=1;
-    continue;}
-    
+        
         ll hz = 0, hz2=0;
-        getline(cin, z);
         //cout << z << endl;
-	if(b)z=c+z;
         int n = z.size();
         for (int i = 0; i < min(n, m); i++)
         {
@@ -114,18 +108,10 @@ int main(int argc, char **argv)
             hz2 = PushBack(hz2, x, p2, z[i]);
             if (hz == hy && hz2 == hy2)
             {
-                if (ch && !b)
-                {
-                    cout << c;
-                }
-
                 cout << z << endl;
                 break;
             }
         }
-        c = getchar();
-      
-        ch = 1;
     }
     return 0;
 }
