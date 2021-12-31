@@ -6,12 +6,6 @@
 using namespace std;
 typedef long long int ll;
 typedef double ld;
-#define pb push_back
-#define sbe(x) sort(x.rbegin(), x.rend())
-#define FIO                       \
-    ios_base::sync_with_stdio(0); \
-    cin.tie(0);                   \
-    cout.tie(0);
 const int OO = 0x3f3f3f3f, MOD = 1e9 + 7;
 const long double EPS = 1e-8;
 const ll loo = 0x3f3f3f3f3f3f3f3f;
