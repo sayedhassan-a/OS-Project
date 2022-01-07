@@ -1,8 +1,3 @@
-/*
-1-if file cannot be opened what will we do ?
-2-after every file is compressed should us compin  them or save in seperated files ?
-
-*/
 #include <iostream>
 #include <fstream>
 #include <bits/stdc++.h>
