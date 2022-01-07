@@ -29,65 +29,48 @@ struct dat
     int num;
     char c;
 };
-pthread_t threads[5];
+pthread_t threads[100];
 vector<dat> v[100];
-int fun(string *ss,int idx)
-{
-    string s=*ss;
-    int n=s.size();
-    int cnt=1;
-    for(int i=1; i<n; i++)
-    {
-        if(s[i]!=s[i-1])
-        {
-            dat psh;
-            psh.num=cnt;
-            psh.c=s[i-1];
-            v[idx].push_back(psh);
-            cnt=1;
-        }
-        else
-        {
-            cnt++;
-        }
-    }
-    dat psh;
-    psh.num=cnt;
-    psh.c=s[n-1];
-    v[idx].push_back(psh);
-    cnt=1;
-    return 0;
-}
-char **fil;
+
 void *zip(void * arg)
 {
-    clock_t b = clock();
-    ftype f= *(ftype*)arg;
-    int cur=f.current;
-    FILE* fp=f.filename;
-    char c;
-    //cout<<cur<<endl;
-    string s;
-    c=fgetc(fp);
-    while(c!=EOF)
-    {
-
-        s+=c;
-        //cout<<cur;
-
-        c=fgetc(fp);
-    }
-    //cout<<"@"<<cur<<" "<<s<<endl;
-    fun(&s,cur);
-    clock_t e = clock();
-    e-=b;
-    //double f=(double)e/CLOCKS_PER_SEC;
-    return 0;
     // to zip file
     // detemine where it is possible to have race condition
     // make locks for this race condition
     // be aware of that the declration of any variable here is vanished after it return
     // instead of lock we may use pthread_cond this will make it easier to code
+    ftype f= *(ftype*)arg;
+    int idx=f.current;
+    FILE* fp=f.filename;
+    char c;
+    //cout<<cur<<endl;
+    c=fgetc(fp);
+    char curr=c;
+    int cnt=0;
+    while(c!=EOF)
+    {
+        if(curr!=c)
+        {
+            dat psh;
+            psh.num=cnt;
+            psh.c=curr;
+            v[idx].push_back(psh);
+            curr=c;
+            cnt=1;
+            c=fgetc(fp);
+            continue;
+        }
+ 
+        cnt++;
+        c=fgetc(fp);
+    }
+    dat psh;
+    psh.num=cnt;
+    psh.c=curr;
+    v[idx].push_back(psh);
+    curr=c;
+    cnt=1;
+    return 0;    
 }
 
 int main(int argc, char **argv)
@@ -97,30 +80,21 @@ int main(int argc, char **argv)
         cout << "wzip: file1 [file2 ...]\n";
         return 1;
     }
-    fil=argv;
     //declare every input file in struct
     ftype files[argc];
     for (int i = 1; i < argc; i++)
     {
         files[i].filename = fopen(argv[i], "r");
         files[i].current=i;
-        pthread_create(&threads[i],NULL,zip,&files[i]);
+        if(i>1)pthread_create(&threads[i],NULL,zip,&files[i]);
+        else zip(&files[i]);
     }
     // make threads for every input file
-    /*for(int i=1; i<argc; i++)
+    for(int i=2; i<argc; i++)
     {
-
-        //pthread_join(threads[i],NULL);// create thread for each input file
-    }*/
-    //cout<<"W";
-     for(int i=1; i<argc; i++)
-    {
-        pthread_join(threads[i],NULL);//make the main wait untill the thread is done the compression us done
+        pthread_join(threads[i],NULL);
+        fclose(files[i].filename);//make the main wait untill the thread is done the compression us done
     }
-   /* cout<<v[1][0].num<<endl;
-
-     cout<<v[2][0].num<<endl;
-      cout<<v[3][0].num<<endl;*/
     for(int i=2; i<argc; i++)
     {
         int sz1=v[i-1].size()-1;
@@ -130,9 +104,9 @@ int main(int argc, char **argv)
             v[i-1].pop_back();
         }
     }
-    //FILE* fpp=freopen("out.out","w",stdout);
     for(int i=1; i<argc; i++)
     {
+
         for(auto x:v[i])
         {
             fwrite(&x.num, 1, sizeof(x.num), stdout );
@@ -141,6 +115,7 @@ int main(int argc, char **argv)
 
         }
     }
+
 //    fclose(fpp);
     return 0;
 }
