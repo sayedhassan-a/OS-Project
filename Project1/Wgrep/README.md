@@ -8,4 +8,5 @@
      -If there were no matches on the file the code will not print any thing and return with 0.
      -If the string space the code will print the entire file 
 ### colmplesity :- 
-      The complexity of this program is O(n+m) where n is the length of the input string and the m is the length of the file 
+      The complexity of this program is O(n+m) where n is the length of the input string and 
+      the m is the length of the file 
